@@ -1,8 +1,8 @@
 #!/usr/bin/python
+
 # Network Socket Monitoring Tool
 
 import collections
-
 import psutil
 
 
@@ -19,8 +19,8 @@ def main():
         pid_connections_map.setdefault(c.pid, []).append(c)
     pid_connections_descending = \
         collections.OrderedDict(sorted(pid_num_of_connections_map.items(),
-                                       key=lambda (k, v): v, reverse=True))
-    print '"pid",' , '"laddr",' '"raddr",' '"status"'
+                                key=lambda (k, v): v, reverse=True))
+    print '"pid",', '"laddr","raddr","status"'
 
     for pid in pid_connections_descending:
         for c in pid_connections_map[pid]:
@@ -29,8 +29,8 @@ def main():
             if c.raddr:
                 raddr = '%s:%s' % c.raddr
             print '"' + str(c.pid or '-') + '"' + ', "' + laddr + '"' \
-                  + ', ' + '"' + str(raddr) + '"' + ', ' + '"' \
-                  + str(c.status) + '"'
+                + ', ' + '"' + str(raddr) + '"' + ', ' + '"' \
+                + str(c.status) + '"'
 
 
 if __name__ == '__main__':
